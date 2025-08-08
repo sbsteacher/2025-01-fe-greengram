@@ -1,36 +1,15 @@
 <script setup>
 import logo from '@/assets/logo.png';
 import ProfileImg from './ProfileImg.vue';
-import { reactive } from 'vue';
 import { useAuthenticationStore } from '@/stores/authentication';
 import { signOut } from '@/services/userService';
 
 const authenticationStore = useAuthenticationStore();
-const state = reactive({
-    feed: {
-        location: '',
-        contents: '',
-        pics: []
-    }
-});
 
 const doSignOut = async () => {    
     const res = await signOut();
     if(res.status === 200) {
         await authenticationStore.signOut()
-    }
-}
-
-const handlePicChanged = e => {
-  state.feed.pics = e.target.files;
-}
-
-const saveFeed = () => {
-    console.log('state.feed.pics: ', state.feed.pics);
-    //사진 있는지 확인    
-    if(state.feed.pics.length === 0) { 
-        alert('사진을 선택해 주세요.');
-        return;
     }
 }
 </script>
@@ -62,7 +41,7 @@ const saveFeed = () => {
 
                     <div class="d-inline-flex dropdown">
                         <a href="#" role="button" id="navDropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"  class="header_profile">
-                            <profile-img :userId="authenticationStore.state.signedUser.userId" :pic="authenticationStore.state.signedUser.pic" :size="24" :clsValue="`pointer profile`" />
+                            <profile-img :userId="authenticationStore.state.signedUser.userId" :pic="authenticationStore.state.signedUser.pic" :size="24" :clsValue="'pointer profile'" />
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navDropdownMenuLink">
                             <li>
@@ -87,22 +66,7 @@ const saveFeed = () => {
         </div>
     </div>
 
-    <div class="modal fade" id="newFeedModal" tabIndex="-1" aria-labelledby="newFeedModalLabel" aria-hidden="false">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content" id="newFeedModalContent">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="newFeedModalLabel">새 게시물 만들기</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="id-modal-body">                            
-                    <div>location: <input type="text" name="location" placeholder="위치" v-model="state.feed.location"/></div>
-                    <div>contents: <textarea name="contents" placeholder="내용" v-model="state.feed.contents"></textarea></div>
-                    <div><label>pic: <input name="pics" type="file" multiple accept="image/*" @change="handlePicChanged"/></label></div>
-                    <div><button @click="saveFeed">전송</button></div>
-                </div>
-            </div>
-        </div>                
-    </div> 
+    
 </header>
 </template>
 
