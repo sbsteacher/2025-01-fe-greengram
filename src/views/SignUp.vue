@@ -16,8 +16,7 @@ const state = reactive({
     chkUpw: 'aaaa1212!!',
     pic: null,
     roles: []
-  },
-    
+  },    
 });
 
 const openFileSelector = () => {
@@ -82,8 +81,7 @@ const submit = async () => {
             class="form-control valid"
             id="uid"
             placeholder="아이디"
-            v-model="state.data.uid"
-            not-null="true"
+            v-model="state.data.uid"            
             not-null-message="아이디는 필수로 입력하셔야 합니다."
             regexp="^[A-Za-z0-9_]{4,50}$"
             regexp-message="아이디는 영어, 숫자, 언더바로만 구성되어야 하며 4~50자까지 작성할 수 있습니다."
@@ -96,8 +94,7 @@ const submit = async () => {
             class="form-control valid"
             id="upw"
             placeholder="비밀번호"
-            v-model="state.data.upw"
-            not-null="true"
+            v-model="state.data.upw"            
             not-null-message="비밀번호는 필수로 입력하셔야 합니다."
             regexp="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&amp;*()_+\-=\[\]{};':&quot;\\|,.&lt;&gt;\/?])[A-Za-z\d!@#$%^&amp;*()_+\-=\[\]{};':&quot;\\|,.&lt;&gt;\/?]{10,}$"
             regexp-message="비밀번호는 영문자, 숫자, 특수기호로 구성되며 10자 이상이어야 합니다."
@@ -117,30 +114,29 @@ const submit = async () => {
         <div class="form-floating">
           <input
             type="text"
-            class="form-control"
+            class="form-control valid"
             id="nickName"
             placeholder="닉네임"
-            v-model="state.data.nickName"
-            not-null="false"
+            v-model="state.data.nickName"            
             regexp="^[가-힣]{2,10}$"
             regexp-message="닉네임은 한글로 2~10자까지 가능합니다."
             />
           <label for="nickName" class="form-label">닉네임</label>
         </div>
         <div>
-          <select v-model="state.data.roles" multiple>
+          <select v-model="state.data.roles" multiple>            
             <option>유저1</option>
             <option>유저2</option>
             <option>관리자</option>
             <option>멘토</option>
-            <option>매니저</option>
+            <option>매니저</option>            
           </select>
         </div>
         <div>
           <b-button variant="outline-primary" @click="openFileSelector">프로필 사진</b-button>
           <input 
             ref="fileInput"
-            hidden           
+            hidden
             id="pic"
             type="file"            
             accept="image/*"            

@@ -28,10 +28,13 @@ const router = createRouter({
   ],
 })
 
+//로그인 하지 않아도 이용할 수 있는 Path들
 const unSignedPathList = ['/sign-in', '/sign-up']
 
+
+//navigation guard
 router.beforeEach((to, from) => {
-  const authentcationStore = useAuthenticationStore();
+  const authentcationStore = useAuthenticationStore();  
   console.log(`router: from: ${from.path} ==> to: ${to.path}`);
   console.log('unSignedPathList.includes(to.path):', unSignedPathList.includes(to.path));
   console.log('authentcationStore.state: ', authentcationStore.state);
