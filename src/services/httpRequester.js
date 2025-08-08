@@ -26,8 +26,10 @@ axios.interceptors.response.use(
           authenticationStore.logout();
         }
       } else {
+        const message = err.response.data?.message ? err.response.data?.message : err.response.data;
+
         const messageModalStore = useMessageModalStore();
-        messageModalStore.setMessage(err.response.data.message);
+        messageModalStore.setMessage(message);
       }
     }
 
