@@ -1,9 +1,8 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
-import { getFeedList } from '@/services/feedService';
 import { useAuthenticationStore } from '@/stores/authentication';
 import FeedCard from '@/components/FeedCard.vue';
-import { postFeed } from '@/services/feedService';
+import { getFeedList, postFeed } from '@/services/feedService';
 
 
 const modalCloseButton = ref(null);
@@ -21,8 +20,8 @@ const state = reactive({
 });
 
 const data = {
-    page: 0,
-    itemPerCount: 20,
+    page: 1,
+    rowPerPage: 20,
 };
 
 onMounted(() => {
@@ -46,9 +45,16 @@ const getCurrentTimestamp = () => {
 const getData = async () => {
     const params = {
         page: data.page++,
-        size: data.itemPerCount
+        row_per_page: data.rowPerPage
     }
-    //state.list = await getFeedList(params);
+    const res = await getFeedList(params);
+    if(res.status === 200) {
+        const result = res.data.result;
+        if(result && result.length > 0) {
+            state.list = [...state.list, ...result];
+        }
+        
+    }
 }
 
 const handlePicChanged = e => {
