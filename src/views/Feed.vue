@@ -23,8 +23,7 @@ const state = reactive({
 
 const data = {
     page: 1,
-    rowPerPage: 20,
-    
+    rowPerPage: 20,    
 };
 
 onMounted(() => {
@@ -60,13 +59,11 @@ const getData = async () => {
     if(res.status === 200) {
         const result = res.data.result;
         if(result && result.length > 0) {
-            state.list = [...state.list, ...result];
-
-            if(result.length < data.rowPerPage) {
-                state.isFinish = true
-            }
+            state.list = [...state.list, ...result];            
         }
-        
+        if(result.length < data.rowPerPage) {
+            state.isFinish = true
+        }        
     }
     state.isLoading = false;
 }
