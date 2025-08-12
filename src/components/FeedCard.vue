@@ -1,11 +1,11 @@
 <script setup>
 import ProfileImg from './ProfileImg.vue';
+import FeedCommentContainer from './FeedCommentContainer.vue';
 import { useAuthenticationStore } from '@/stores/authentication';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { ref, reactive } from 'vue';
 import { getDateTimeInfo } from '@/utils/feedUtils';
-
 import { toggleFeedLike } from '@/services/feedLikeService';
 
 import 'swiper/css';
@@ -35,7 +35,8 @@ const props = defineProps({
 
 const state = reactive({
   modules: [Navigation, Pagination, Scrollbar, A11y],
-  isLike: props.item.isLike
+  isLike: props.item.isLike,
+  pagination: props.item.pics.length <= 5 ? { clickable: true } : null
 });
 
 const toggleLike = async () => {
@@ -73,7 +74,7 @@ const toggleLike = async () => {
       <div class="p-3 flex-grow-1">
         <div>
           <router-link :to="`/profile/${props.item.writerUserId}`">
-            <span class="pointer">{{ props.item.writerNm }}</span>
+            <span class="pointer">{{ props.item.writerNickName ? props.item.writerNickName : props.item.writerUid }} - {{ getDateTimeInfo(props.item.createdAt) }}</span>
           </router-link>
         </div>        
         <div>{{ props.item.location }}</div>
@@ -100,7 +101,7 @@ const toggleLike = async () => {
       <i :class="`${state.isLike ? 'fas' : 'far'} fa-heart pointer rem1_2 me-3 color-red`" @click="toggleLike"></i>
     </div>
     <div class="itemCtnt p-2" v-if="props.item.contents">{{ props.item.contents }}</div>
-
+    <feed-comment-container :feed-id="props.item.feedId" :comments="props.item.comments" />
   </div>
 </template>
 

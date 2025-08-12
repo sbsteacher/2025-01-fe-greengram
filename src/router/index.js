@@ -31,7 +31,6 @@ const router = createRouter({
 //로그인 하지 않아도 이용할 수 있는 Path들
 const unSignedPathList = ['/sign-in', '/sign-up']
 
-
 //navigation guard
 router.beforeEach((to, from) => {
   const authentcationStore = useAuthenticationStore();  

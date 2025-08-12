@@ -18,9 +18,7 @@ const state = reactive({
 
 const submit = async () => {
   //유효성 체크
-  if (checkValidation()) {
-    return;
-  }
+  if (checkValidation()) { return; }
 
   const res = await signIn(state.form);
   console.log('Login.vue - submit() - res: ', res);
