@@ -89,7 +89,7 @@ const toggleLike = async () => {
     <swiper
       navigation
       :modules="state.modules"
-      :pagination="{ clickable: true }"
+      :pagination="{ clickable: true, dynamicBullets: true }"
       :scrollbar="{ draggable: true }"
       :slides-per-view="1"
       :space-between="50">

@@ -2,11 +2,14 @@
 import FeedCommentCard from './FeedCommentCard.vue';
 import { reactive } from 'vue';
 import { postComment, getCommentList, deleteComment } from '@/services/feedCommentService';
+import { useAuthenticationStore } from '@/stores/authentication';
 
 const props = defineProps({
     feedId: Number,
     comments: Object
 });
+
+const authenticationStore = useAuthenticationStore();
 
 const state = reactive({
     isLoading: false,
@@ -42,13 +45,25 @@ const onPostComment = async () => {
     }
 
     const data = {
-        feedId: 0,
+        feedId: props.feedId,
         comment: state.comment
     }
 
     const res = await postComment(data);
     if(res.status === 200) {
         const result = res.data.result;
+
+        const commentItem = {
+            feedCommentId: result,
+            writerUserId: authenticationStore.state.signedUser.userId,
+            writerNm: authenticationStore.state.signedUser.nickName,
+            writerPic: authenticationStore.state.signedUser.pic,
+            comment: state.comment
+        }
+
+        state.commentList.unshift(commentItem);
+
+        state.comment = '';
     }
 }
 
