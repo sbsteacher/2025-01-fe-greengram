@@ -11,27 +11,27 @@ const props = defineProps({
 const state = reactive({
     isLoading: false,
     comment: '',
-    //moreComment: props.comments?.moreComment,
-    //commentList: props.comments?.commentList
-    moreComment: true,
-    commentList: [
-        {         
-            feedCommentId: 1,
-            comment: '테스트',
-            writerUserId: 3,
-            writerNickName: null,
-            writerUid: 'mic23',
-            writerPic: '181c59ba-cd2d-4439-8809-c6982c477136.jpg'
-        },
-        {            
-            feedCommentId: 1,
-            comment: '테스트2',
-            writerUserId: 3,
-            writerNickName: null,
-            writerUid: 'mic23',
-            writerPic: '181c59ba-cd2d-4439-8809-c6982c477136.jpg'
-        }
-    ]
+    moreComment: props.comments?.moreComment,
+    commentList: props.comments?.commentList
+    // moreComment: true,
+    // commentList: [
+    //     {         
+    //         feedCommentId: 1,
+    //         comment: '테스트',
+    //         writerUserId: 3,
+    //         writerNickName: null,
+    //         writerUid: 'mic23',
+    //         writerPic: '181c59ba-cd2d-4439-8809-c6982c477136.jpg'
+    //     },
+    //     {            
+    //         feedCommentId: 1,
+    //         comment: '테스트2',
+    //         writerUserId: 3,
+    //         writerNickName: null,
+    //         writerUid: 'mic23',
+    //         writerPic: '181c59ba-cd2d-4439-8809-c6982c477136.jpg'
+    //     }
+    // ]
 });
 
 //댓글 등록
