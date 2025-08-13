@@ -37,6 +37,10 @@ const state = reactive({
     // ]
 });
 
+const data = {
+    rowPerPage: 30, 
+}
+
 //댓글 등록
 const onPostComment = async () => {
     if(state.comment.trim().length === 0) {
@@ -72,13 +76,15 @@ const getMoreComment = async () => {
     state.isLoading = true;
     const params = { 
         feed_id: props.feedId,
-        start_idx: state.commentList.length
+        start_idx: state.commentList.length,
+        size: data.rowPerPage
     }
     const res = await getCommentList(params)
     if(res.status === 200) {
-        const moreCommentList = res.data.result;
-        if(moreCommentList.length > 0) {
-            state.commentList = [...state.commentList, ...moreCommentList]
+        const result = res.data.result;
+        state.moreComment = res.moreComment;
+        if(result.moreCommentList.length > 0) {
+            state.commentList.push(...result.moreCommentList)
         }
     }
     state.isLoading = false;

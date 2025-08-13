@@ -1,5 +1,24 @@
 <script setup>
+import { ref, reactive, onMounted, onUnmounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useAuthenticationStore } from '@/stores/authentication';
 
+const authenticationStore = useAuthenticationStore();
+const route = useRoute(); //PathVariable 데이터 가져오기 위한 용도
+console.log('route.params.userId:', route.params.userId);
+
+ const getFollowStateText = followState => {
+    console.log(`followState : ${followState}`);
+    switch(followState) {
+        case 0:
+            return '팔로우';
+        case 1:
+        case 3:
+            return '팔로우 취소';
+        case 2:
+            return '맞팔로우';
+    }
+}
 </script>
 
 <template>
@@ -12,10 +31,15 @@
                         <tr>
                             <td>게시물</td>
                             <td></td>
-                            <td class="pL-10">좋아요</td>
+                            <td class="pl_10">좋아요</td>
                             <td></td>
-                            <td></td>
-                            <td></td>
+                            <td class="pointer follower pl_10">팔로워</td>
+                            <td class="pointer follower"></td>
+                            <td class="pointer follow pl_10">팔로우</td>
+                            <td class="pointer follow"></td>
+                            <td class="pl_10">
+                                <input type="button" class="instaBtn" :value="getFollowStateText('')"/>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

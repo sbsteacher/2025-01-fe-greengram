@@ -3,8 +3,9 @@ import { ref, reactive, onMounted, onUnmounted } from 'vue';
 import { useAuthenticationStore } from '@/stores/authentication';
 import FeedCard from '@/components/FeedCard.vue';
 import { getFeedList, postFeed } from '@/services/feedService';
+import { bindEvent } from '@/utils/commonUtils';
 
-const INFINITY_SCROLL_GAP = 500;
+
 
 const modalCloseButton = ref(null);
 
@@ -25,6 +26,8 @@ const data = {
     page: 1,
     rowPerPage: 20,    
 };
+
+const handleScroll = () => { bindEvent(state, window, getData) };
 
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
@@ -128,15 +131,6 @@ const initInputs = () => {
     state.feed.location = '';
     state.feed.pics = [];
 }
-
-const handleScroll = () => {       
-    console.log('스크롤 이벤트');
-    if(state.isFinish || state.isLoading || parseInt(window.innerHeight + window.scrollY) + INFINITY_SCROLL_GAP <= document.documentElement.offsetHeight) {
-        return;
-    }        
-    console.log('데이터 가져오기');
-    getData();  
-};
 </script>
 
 <template>
