@@ -62,16 +62,20 @@ const onPostComment = async () => {
             writerUserId: authenticationStore.state.signedUser.userId,
             writerNm: authenticationStore.state.signedUser.nickName,
             writerPic: authenticationStore.state.signedUser.pic,
-            comment: state.comment
+            comment: state.comment,
+            isSelf: true
         }
 
         state.commentList.push(commentItem);
-
         state.comment = '';
     }
 }
 
 const getMoreComment = async () => {
+    //기존 자체 생성한 댓글은 삭제처리 
+    const commentList = state.commentList.filter(item => item.isSelf === undefined);
+    state.commentList = commentList;
+
     console.log('getMoreComment clicked');
     state.isLoading = true;
     const params = { 
