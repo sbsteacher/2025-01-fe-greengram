@@ -65,7 +65,7 @@ const onPostComment = async () => {
             comment: state.comment
         }
 
-        state.commentList.unshift(commentItem);
+        state.commentList.push(commentItem);
 
         state.comment = '';
     }
