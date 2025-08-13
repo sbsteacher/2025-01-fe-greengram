@@ -38,7 +38,7 @@ const state = reactive({
 });
 
 const data = {
-    rowPerPage: 30, 
+    rowPerPage: 31, 
 }
 
 //댓글 등록
@@ -82,9 +82,9 @@ const getMoreComment = async () => {
     const res = await getCommentList(params)
     if(res.status === 200) {
         const result = res.data.result;
-        state.moreComment = res.moreComment;
-        if(result.moreCommentList.length > 0) {
-            state.commentList.push(...result.moreCommentList)
+        state.moreComment = result.moreComment;
+        if(result.commentList.length > 0) {
+            state.commentList.push(...result.commentList)
         }
     }
     state.isLoading = false;
