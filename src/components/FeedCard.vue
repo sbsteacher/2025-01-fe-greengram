@@ -86,11 +86,10 @@ const toggleLike = async () => {
       </div>
     </div>
 
-    <swiper
+    <swiper      
       navigation
       :modules="state.modules"
-      :pagination="{ clickable: true, dynamicBullets: true }"
-      :scrollbar="{ draggable: true }"
+      :pagination="{ clickable: true, dynamicBullets: true }"      
       :slides-per-view="1"
       :space-between="50">
       <swiper-slide v-for="(item, idx) in props.item.pics" :virtualIndex="idx" :key="idx">
@@ -108,4 +107,5 @@ const toggleLike = async () => {
 <style scoped>
 .item { border: 1px solid #9f9e9e; width: 600px; }
 .w614 { width: 614px; }
+
 </style>
