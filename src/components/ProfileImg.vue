@@ -40,5 +40,5 @@ const handleImgError = e => {
 .w800 { width: 800px; }
 
 .circleimg { display: inline-block; overflow: hidden; border-radius: 50%; border: 1px solid #ecf0f1; vertical-align: top; }
-.circleimg > img { width: 100%; height: 100%; object-fit: cover; }
+.circleimg > img { width: 100%; height: 100%; object-fit: cover; vertical-align: top; }
 </style>

@@ -24,7 +24,7 @@ const doSignOut = async () => {
             <div class="d-inline-flex flex-grow-1 flex-shrink-0"></div>
             <div class="d-inline-flex flex-grow-1 flex-shrink-0">
                 <nav class="d-flex flex-grow-1 flex-column flex-md-row justify-content-end">
-                    <div class="d-inline-flex me-3">
+                    <div class="d-inline-flex">
                         <a href="#" id="newFeedModalBtn" data-bs-toggle="modal" data-bs-target="#newFeedModal">
                             <svg aria-label="새로운 게시물"  class="_8-yf5" color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24">
                                 <path d="M2 12v3.45c0 2.849.698 4.005 1.606 4.944.94.909 2.098 1.608 4.946 1.608h6.896c2.848 0 4.006-.7 4.946-1.608C21.302 19.455 22 18.3 22 15.45V8.552c0-2.849-.698-4.006-1.606-4.945C19.454 2.7 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.547 2 5.703 2 8.552z" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"  strokeWidth="2">
@@ -36,9 +36,6 @@ const doSignOut = async () => {
                             </svg>
                         </a>
                     </div>
-
-                    <div class="d-inline-flex me-3"></div>
-
                     <div class="d-inline-flex dropdown">
                         <a href="#" role="button" id="navDropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"  class="header_profile">
                             <profile-img :userId="authenticationStore.state.signedUser.userId" :pic="authenticationStore.state.signedUser.pic" :size="24" :clsValue="'pointer profile'" />
@@ -71,5 +68,6 @@ const doSignOut = async () => {
 </template>
 
 <style scoped>
-a { text-decoration: none; color: black; }
+
+nav { align-items: center; gap: 20px; }
 </style>

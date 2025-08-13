@@ -10,7 +10,7 @@ const props = defineProps({
 </script>
 
 <template>
-<div class="cmtItemCont">
+<div class="cmtItemCont mt-1">
     <div class="cmtItemProfile">
         <profile-img :clsValue="'profile pointer'" :size="24" :pic="props.item.writerPic" :userId="props.item.writerUserId" />        
         <template v-if="authenticationStore.state.signedUser.userId === props.item.writerUserId">

@@ -111,7 +111,7 @@ const saveFeed = async () => {
             feedId: result.feedId,
             pics: result.pics,
             writerId: authenticationStore.state.signedUser.userId,
-            writerNm: authenticationStore.state.signedUser.nickName,
+            writerNickName: authenticationStore.state.signedUser.nickName,
             writerPic: authenticationStore.state.signedUser.pic,
             createdAt: getCurrentTimestamp(),
             comment: {
@@ -136,7 +136,7 @@ const initInputs = () => {
 <template>
     <section class="back_color">
         <div class="container d-flex flex-column align-items-center">
-            <feed-card v-for="item in state.list" :key="item.id" :item="item"></feed-card>
+            <feed-card v-for="item in state.list" :key="item.feedId" :item="item"></feed-card>
             <p v-if="state.isLoading">Loading...</p>
         </div>
     </section>

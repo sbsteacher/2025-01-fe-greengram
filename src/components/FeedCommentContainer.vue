@@ -113,7 +113,7 @@ const onDeleteComment = async (feedCommentId, idx) => {
 
 <template>
 <div>
-    <div class="overflow-y-auto max-height-240">
+    <div class="overflow-y-auto max-height-240 mt-3 mb-3">
         <div v-if="state.isLoading">Loading...</div>
         <feed-comment-card v-for="(item, idx) in state.commentList" :key="item.feedCommentId" :item="item" @on-delete-comment="onDeleteComment(item.feedCommentId, idx)"/>
         <div v-if="state.moreComment" class="mt-3 mb-3">
