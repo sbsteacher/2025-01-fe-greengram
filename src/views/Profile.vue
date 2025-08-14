@@ -63,9 +63,6 @@ const init = userId => {
 }
 
 init(parseInt(route.params.userId));
-
-
-
 console.log('route.params.userId:', route.params.userId);
 
 
@@ -88,8 +85,6 @@ const getFollowStateText = followState => {
             return '맞팔로우';
     }
 }
-
-
 
 const getUserData = async () => {
     const params = {
@@ -150,15 +145,38 @@ const handlePicChanged = async e => {
 
 const handleScroll = () => { bindEvent(state, window, getFeedData) };
 
-onMounted(() => {
-    window.addEventListener('scroll', handleScroll);
-    getData();    
-});
+
 
 const getData = () => {
     getUserData();
     getFeedData();
 }
+
+//팔로우 버튼 클릭시
+const onClickFollow = async () => {
+
+    switch(state.userProfile.followState) {
+        case 0: case 2: //post            
+            const postRes = await postUserFollow({ toUserId: profileUserId });
+            if(postRes.status === 200) {
+                state.userProfile.followState += 1;
+                state.userProfile.followerCount += 1;
+            }
+        default: //delete            
+            const deleteRes = await deleteUserFollow({ to_user_id: profileUserId });
+            if(deleteRes.status === 200) {
+                state.userProfile.followState -= 1;
+                state.userProfile.followerCount -= 1;
+            }
+    }
+}
+
+
+
+onMounted(() => {
+    window.addEventListener('scroll', handleScroll);
+    getData();    
+});
 
 onUnmounted(() => {
     window.removeEventListener('scroll', handleScroll);
@@ -193,7 +211,7 @@ onBeforeRouteUpdate((to, from) => {
                         <td class="pointer follow pl_10">팔로우</td>
                         <td class="pointer follow">{{ state.userProfile.followingCount }}</td>
                         <td class="pl_10" v-if="!state.isMyProfile">
-                            <input type="button" class="instaBtn" :value="getFollowStateText(state.userProfile.followState)"/>
+                            <input type="button" class="instaBtn" :value="getFollowStateText(state.userProfile.followState)" @click="onClickFollow"/>
                         </td>
                     </tr>
                 </tbody>
