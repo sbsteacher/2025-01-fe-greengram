@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import defaultProfileImg from '@/assets/defaultProfileImg.png';
 
 const baseUrl = ref(import.meta.env.VITE_BASE_URL);
@@ -13,9 +13,8 @@ const props = defineProps({
 
 console.log('profileImg - props:', `${baseUrl.value}/pic/profile/${props.userId}/${props.pic}` )
 
-const pic = props.pic 
-            ? `${baseUrl.value}/pic/profile/${props.userId}/${props.pic}` 
-            : defaultProfileImg;
+//props값을 변수에 재할당해서 사용하는 경우 반응성이 사라짐. 이때는 computed를 사용하거나 toRefs 사용해야 함. 아래는 computed로 해결
+const pic = computed( () => props.pic ? `${baseUrl.value}/pic/profile/${props.userId}/${props.pic}` : defaultProfileImg );
 
 const handleImgError = e => {
     e.target.src = defaultProfileImg;

@@ -6,8 +6,6 @@ import FeedCard from '@/components/FeedCard.vue';
 import { getFeedList, postFeed } from '@/services/feedService';
 import { bindEvent } from '@/utils/commonUtils';
 
-
-
 const modalCloseButton = ref(null);
 
 const authenticationStore = useAuthenticationStore();
@@ -63,7 +61,7 @@ const getData = async () => {
     if(res.status === 200) {
         const result = res.data.result;
         if(result && result.length > 0) {
-            state.list = [...state.list, ...result];            
+            state.list.push(...result);
         }
         if(result.length < data.rowPerPage) {
             state.isFinish = true
