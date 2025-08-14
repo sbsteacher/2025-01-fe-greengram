@@ -1,4 +1,5 @@
 <script setup>
+import loadingImg from '@/assets/loading.gif';
 import FeedCommentCard from './FeedCommentCard.vue';
 import { reactive } from 'vue';
 import { postComment, getCommentList, deleteComment } from '@/services/feedCommentService';
@@ -16,25 +17,6 @@ const state = reactive({
     comment: '',
     moreComment: props.comments?.moreComment,
     commentList: props.comments?.commentList
-    // moreComment: true,
-    // commentList: [
-    //     {         
-    //         feedCommentId: 1,
-    //         comment: '테스트',
-    //         writerUserId: 3,
-    //         writerNickName: null,
-    //         writerUid: 'mic23',
-    //         writerPic: '181c59ba-cd2d-4439-8809-c6982c477136.jpg'
-    //     },
-    //     {            
-    //         feedCommentId: 1,
-    //         comment: '테스트2',
-    //         writerUserId: 3,
-    //         writerNickName: null,
-    //         writerUid: 'mic23',
-    //         writerPic: '181c59ba-cd2d-4439-8809-c6982c477136.jpg'
-    //     }
-    // ]
 });
 
 const data = {
@@ -102,7 +84,9 @@ const onDeleteComment = async (feedCommentId, idx) => {
     
     if(!confirm('댓글을 삭제하시겠습니까?')) { return; }
 
-    const params = { feedCommentId }
+    const params = { 
+        feed_comment_id: feedCommentId 
+    }
     
     const res = await deleteComment(params);
     if(res.status === 200) {    
@@ -114,7 +98,7 @@ const onDeleteComment = async (feedCommentId, idx) => {
 <template>
 <div>
     <div class="overflow-y-auto max-height-240 mt-3 mb-3">
-        <div v-if="state.isLoading">Loading...</div>
+        <div v-if="state.isLoading" class="loading display-none"><img :src="loadingImg"/></div>
         <feed-comment-card v-for="(item, idx) in state.commentList" :key="item.feedCommentId" :item="item" @on-delete-comment="onDeleteComment(item.feedCommentId, idx)"/>
         <div v-if="state.moreComment" class="mt-3 mb-3">
             <span class="pointer" @click="getMoreComment">댓글 더보기</span>

@@ -14,6 +14,6 @@ const messageModal = useMessageModalStore();
 </template>
 
 <style>
-a { text-decoration: none; color: black; }
+a { text-decoration: none !important; color: black !important; }
 .swiper-wrapper { align-items: center; }
 </style>

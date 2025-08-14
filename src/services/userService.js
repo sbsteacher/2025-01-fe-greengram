@@ -14,6 +14,8 @@ export const signOut = () => {
   return axios.post(`${path}/sign-out`).catch((e) => e.response);
 };
 
-export const reissue = () => {
-  return axios.post(`${path}/reissue`).catch((e) => e.response);
+export const reissue = data => {
+  return axios.post(`${path}/reissue`, data).catch((e) => e.response);
 };
+
+export const getUserProfile = params => axios.get(`${path}/profile`, { params }).catch((e) => e.response);

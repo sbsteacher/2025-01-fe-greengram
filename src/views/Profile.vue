@@ -1,13 +1,23 @@
 <script setup>
-import { ref, reactive, onMounted, onUnmounted } from 'vue';
+import loadingImg from '@/assets/loading.gif';
+import ProfileImg from '@/components/ProfileImg.vue';
+import { ref, reactive, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useAuthenticationStore } from '@/stores/authentication';
+import { getUserProfile } from '@/services/userService';
+
+const state = reactive({
+    isLoading: false,
+    userProfile: null
+});
 
 const authenticationStore = useAuthenticationStore();
+
 const route = useRoute(); //PathVariable 데이터 가져오기 위한 용도
+const data = { profileUserId: route.params.userId }
 console.log('route.params.userId:', route.params.userId);
 
- const getFollowStateText = followState => {
+const getFollowStateText = followState => {
     console.log(`followState : ${followState}`);
     switch(followState) {
         case 0:
@@ -19,6 +29,27 @@ console.log('route.params.userId:', route.params.userId);
             return '맞팔로우';
     }
 }
+
+onMounted(async () => {
+    const params = {
+        profile_user_id: data.profileUserId
+    }
+    const res = await getUserProfile(params);
+
+});
+
+const removeUserPic = () => {
+    console.log('프로파일 이미지 삭제');
+}
+/*
+팔로우 상태
+0: 서로 팔로우 안 한 상태
+1: 나만 상대방을 팔로우 한 상태
+2: 상대방만 나를 팔로우 한 상태
+3: 서로 팔로우 한 상태
+*/
+
+
 </script>
 
 <template>
@@ -43,6 +74,14 @@ console.log('route.params.userId:', route.params.userId);
                         </tr>
                     </tbody>
                 </table>
+                <div>
+                    <div class="d-inline-flex">
+                        <profile-img :clsValue="'profile pointer'" :size="300" :pic="state.userProfile.pic" :userId="state.userProfile.userId" />
+                    </div>
+                    <div className="d-inline-flex item_container width-50" v-if="state.userProfile.pic">
+                        <i className="fa fa-minus-square color-red pointer" @click="removeUserPic" />
+                    </div>
+                </div>
             </div>
         </div>
     </section>

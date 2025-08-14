@@ -12,7 +12,7 @@ const props = defineProps({
 <template>
 <div class="cmtItemCont mt-1">
     <div class="cmtItemProfile">
-        <profile-img :clsValue="'profile pointer'" :size="24" :pic="props.item.writerPic" :userId="props.item.writerUserId" />        
+        <profile-img :clsValue="'profile pointer'" :size="24" :pic="props.item.writerPic" :userId="props.item.writerUserId" />
         <template v-if="authenticationStore.state.signedUser.userId === props.item.writerUserId">
             <i class="fa fa-trash pointer" @click="$emit('onDeleteComment')"></i>
         </template>

@@ -6,20 +6,19 @@ export const useAuthenticationStore = defineStore(
     "authentication", 
     () => {
         const state = reactive({            
-            signedUser: null,
+            signedUser: null,            
             isSigned: false
         });
 
-        const setSignedUser = val => {
-            state.signedUser = val;
+        const setSignedUser = signedUser => {
             state.isSigned = true;
+            state.signedUser = signedUser                       
         }
 
         const signOut = async () => {
             console.log('signOut 처리')
-            state.signedUser = null;
             state.isSigned = false;
-            
+            state.signedUser = null;            
             await router.push('/sign-in')
         }
 
