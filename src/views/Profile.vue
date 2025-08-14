@@ -29,7 +29,10 @@ const state = reactive({
         pic: '',
         nickName: '',
         createdAt: '',
-
+        feedCount: 0,
+        allFeedLikeCount: 0,
+        followerCount: 0,
+        followingCount: 0,
     },
     list: []
 });
@@ -141,13 +144,13 @@ onUnmounted(() => {
                 <tbody>
                     <tr>
                         <td>게시물</td>
-                        <td></td>
+                        <td>{{ state.userProfile.feedCount }}</td>
                         <td class="pl_10">좋아요</td>
-                        <td></td>
+                        <td>{{ state.userProfile.allFeedLikeCount }}</td>
                         <td class="pointer follower pl_10">팔로워</td>
-                        <td class="pointer follower"></td>
+                        <td class="pointer follower">{{ state.userProfile.followerCount }}</td>
                         <td class="pointer follow pl_10">팔로우</td>
-                        <td class="pointer follow"></td>
+                        <td class="pointer follow">{{ state.userProfile.followingCount }}</td>
                         <td class="pl_10" v-if="!isMyProfile">
                             <input type="button" class="instaBtn" :value="getFollowStateText('')"/>
                         </td>
