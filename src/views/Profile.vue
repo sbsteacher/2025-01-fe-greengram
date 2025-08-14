@@ -33,6 +33,7 @@ const state = reactive({
         allFeedLikeCount: 0,
         followerCount: 0,
         followingCount: 0,
+        followState: 0
     },
     list: []
 });
@@ -152,7 +153,7 @@ onUnmounted(() => {
                         <td class="pointer follow pl_10">팔로우</td>
                         <td class="pointer follow">{{ state.userProfile.followingCount }}</td>
                         <td class="pl_10" v-if="!isMyProfile">
-                            <input type="button" class="instaBtn" :value="getFollowStateText('')"/>
+                            <input type="button" class="instaBtn" :value="getFollowStateText(state.userProfile.followState)"/>
                         </td>
                     </tr>
                 </tbody>
