@@ -14,7 +14,7 @@ const doSignOut = async () => {
 }
 </script>
 
-<template>
+<template>    
 <header class="container py-3" v-if="authenticationStore.state.isSigned">
     <div id="globalConst">
         <div class="d-flex flex-column flex-md-row align-items-center">

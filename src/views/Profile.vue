@@ -5,7 +5,7 @@ import FeedCard from '@/components/FeedCard.vue';
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
 import { useRoute, useRouter, onBeforeRouteUpdate  } from 'vue-router';
 import { useAuthenticationStore } from '@/stores/authentication';
-import { getUserProfile, patchUserProfilePic } from '@/services/userService';
+import { getUserProfile, patchUserProfilePic, deleteUserProfilePic } from '@/services/userService';
 import { postUserFollow, deleteUserFollow } from '@/services/followService';
 import { getFeedList } from '@/services/feedService';
 import { bindEvent } from '@/utils/commonUtils';
@@ -17,26 +17,14 @@ const route = useRoute(); //PathVariable 데이터 가져오기 위한 용도
 const data = { 
     profileUserId: 0,
     page: 1,
-    rowPerPage: 20,
-    
+    rowPerPage: 20,    
 }
 
 const state = reactive({
     isMyProfile: false,
     isLoading: false,
     isFinish: false,
-    userProfile: {
-        userId: 0,
-        uid: '',
-        pic: '',
-        nickName: '',
-        createdAt: '',
-        feedCount: 0,
-        allFeedLikeCount: 0,
-        followerCount: 0,
-        followingCount: 0,
-        followState: 0
-    },
+    userProfile: null,
     list: []
 });
 
@@ -118,8 +106,14 @@ const getFeedData = async () => {
     state.isLoading = false;
 }
 
-const removeUserPic = () => {
+const removeUserPic = async () => {
     console.log('프로파일 이미지 삭제');
+    
+    const res = await deleteUserProfilePic();
+    if(res.status === 200) {
+        state.userProfile.pic = null;
+        authenticationStore.setSigndUserPic(null);
+    }    
 }
 
 const onClickProfileImg = () => {
@@ -144,8 +138,6 @@ const handlePicChanged = async e => {
 };
 
 const handleScroll = () => { bindEvent(state, window, getFeedData) };
-
-
 
 const getData = () => {
     getUserData();
@@ -173,8 +165,6 @@ const onClickFollow = async () => {
     }
 }
 
-
-
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
     getData();    
@@ -190,7 +180,6 @@ onBeforeRouteUpdate((to, from) => {
     const toUserId = parseInt(to.params.userId);
     if(toUserId !== data.profileUserId) {
         init(toUserId);
-
         getData();
     }
 });
@@ -222,7 +211,7 @@ onBeforeRouteUpdate((to, from) => {
             <div>
                 <div class="d-inline-flex" @click="onClickProfileImg">
                     <profile-img :clsValue="`profile ${ state.isMyProfile ? 'pointer': '' }`" :size="300" :pic="state.userProfile.pic" :userId="state.userProfile.userId" />
-                </div>
+                </div>                
                 <div className="d-inline-flex item_container width-50" v-if="state.isMyProfile && state.userProfile.pic">
                     <i className="fa fa-minus-square color-red pointer" @click="removeUserPic" />
                 </div>
