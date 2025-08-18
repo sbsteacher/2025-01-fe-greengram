@@ -81,7 +81,7 @@ const toggleLike = async () => {
       </div>      
       <div v-if="props.ynDel && props.item.writerUserId === authenticationStore.state.signedUser.userId">
         <div className="d-flex flex-column justify-content-center">
-            <i className="fa fa-trash pointer color-red" @click="$emit('onDeleteFeed', props.item.feedId)"></i>
+            <i className="fa fa-trash pointer color-red" @click="$emit('onDeleteFeed')"></i>
         </div>
       </div>
     </div>
