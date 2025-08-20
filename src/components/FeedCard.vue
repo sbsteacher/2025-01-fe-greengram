@@ -19,8 +19,8 @@ const authenticationStore = useAuthenticationStore();
 
 const props = defineProps({
   item: {
-    feedId: Number,
-    writerUserId: Number,
+    feedId: String,
+    writerUserId: String,
     writerPic: String,
     writerNm: String,
     location: String,    

@@ -6,7 +6,7 @@ import { postComment, getCommentList, deleteComment } from '@/services/feedComme
 import { useAuthenticationStore } from '@/stores/authentication';
 
 const props = defineProps({
-    feedId: Number,
+    feedId: String,
     comments: Object
 });
 
@@ -42,7 +42,7 @@ const onPostComment = async () => {
         const commentItem = {
             feedCommentId: result,
             writerUserId: authenticationStore.state.signedUser.userId,
-            writerNm: authenticationStore.state.signedUser.nickName,
+            writerNickName: authenticationStore.state.signedUser.nickName,
             writerPic: authenticationStore.state.signedUser.pic,
             comment: state.comment,
             isSelf: true
