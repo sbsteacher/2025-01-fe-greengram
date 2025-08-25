@@ -10,8 +10,11 @@ const authentication = useAuthenticationStore();
 
 onMounted(async () => {
 
-    const error = route.params.error;
-    const userId = route.params.user_id;
+    const error = route.query.error;
+    const userId = route.query.user_id;
+
+    console.log('error:', error);
+    console.log('userId:', userId);
 
     if(error || !userId) {
         if(error) {
@@ -20,10 +23,12 @@ onMounted(async () => {
         await router.push('/sign-in');
     }
     
-    const nickName = route.params.nick_name;
-    const pic = route.params.pic;
+    const nickName = route.query.nick_name;
+    const pic = route.query.pic;
 
     const signedUser = { userId, nickName, pic }
+
+    console.log('signedUser: ', signedUser);
 
     authentication.setSignedUser(signedUser);
     await router.push('/');
