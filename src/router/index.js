@@ -24,7 +24,11 @@ const router = createRouter({
       name: 'profile',
       component: () => import('../views/Profile.vue')
     },
-    
+    {
+      path: '/fe/redirect',
+      name: 'oauth2',
+      component: () => import('../views/OAuth2Handler.vue')
+    },
   ],
 })
 
