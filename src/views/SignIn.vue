@@ -70,6 +70,7 @@ const submit = async () => {
       </form>
       <div class="mb-3">
         <span class="pointer"><a :href="`${beBaseUrl}/oauth2/authorization/naver?redirect_uri=${redirectUrl}`">네이버</a></span>        
+        <span class="pointer"><a :href="`${beBaseUrl}/oauth2/authorization/kakao?redirect_uri=${redirectUrl}`">카카오</a></span>        
       </div>
       <div>
         <router-link to="/sign-up"><span>회원가입</span></router-link>
