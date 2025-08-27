@@ -23,47 +23,32 @@ const props = defineProps({
     writerUserId: String,
     writerPic: String,
     writerNm: String,
-    location: String,    
+    location: String,
     pics: Array,
     contents: String,
     isLike: Boolean,
     likeCount: Number,
-    comment: Object
+    comment: Object,
   },
   ynDel: Boolean,
-  onDeleteFeed: Function
+  onDeleteFeed: Function,
 });
 
 const state = reactive({
   modules: [Navigation, Pagination, Scrollbar, A11y],
   isLike: props.item.isLike,
   pagination: props.item.pics.length <= 5 ? { clickable: true } : null,
-  likeCount: props.item.likeCount
+  likeCount: props.item.likeCount,
 });
 
 const toggleLike = async () => {
-  console.log('toggleLike click!');
-  const data = { feedId: props.item.feedId }
+  const data = { feedId: props.item.feedId };
   const res = await toggleFeedLike(data);
-  if(res.status === 200) {
+  if (res.status === 200) {
     state.isLike = res.data.result;
     state.likeCount = state.isLike ? state.likeCount + 1 : state.likeCount - 1;
   }
 };
-
-// const deleteFeed = async () => {
-//   if(!ynDel || !confirm('삭제하시겠습니까?')) { return; }
-  
-//   const params = {
-//     feed_id: props.item.feedId
-//   }
-
-//   const res = await deleteFeed(params);
-//   if(res.status === 200) {
-    
-//   }
-
-// }
 </script>
 
 <template>
@@ -71,45 +56,81 @@ const toggleLike = async () => {
     <div class="d-flex flex-row ps-3 pe-3">
       <div class="d-flex flex-column justify-content-center">
         <router-link :to="`/profile/${props.item.writerUserId}`">
-          <profile-img :userId="props.item.writerUserId" :pic="props.item.writerPic" :size="30" :clsValue="'pointer profile'"/>
+          <profile-img
+            :userId="props.item.writerUserId"
+            :pic="props.item.writerPic"
+            :size="30"
+            :clsValue="'pointer profile'" />
         </router-link>
       </div>
       <div class="p-3 flex-grow-1">
         <div>
           <router-link :to="`/profile/${props.item.writerUserId}`">
-            <span class="pointer">{{ props.item.writerNickName ? props.item.writerNickName : props.item.writerUid }} - {{ getDateTimeInfo(props.item.createdAt) }}</span>
+            <span class="pointer"
+              >{{
+                props.item.writerNickName
+                  ? props.item.writerNickName
+                  : props.item.writerUid
+              }}
+              - {{ getDateTimeInfo(props.item.createdAt) }}</span
+            >
           </router-link>
-        </div>        
+        </div>
         <div>{{ props.item.location }}</div>
-      </div>      
-      <div v-if="props.ynDel && props.item.writerUserId === authenticationStore.state.signedUser.userId">
+      </div>
+      <div
+        v-if="
+          props.ynDel &&
+          props.item.writerUserId === authenticationStore.state.signedUser.userId
+        ">
         <div className="d-flex flex-column justify-content-center">
-            <i className="fa fa-trash pointer color-red" @click="$emit('onDeleteFeed')"></i>
+          <i
+            className="fa fa-trash pointer color-red"
+            @click="$emit('onDeleteFeed')"></i>
         </div>
       </div>
     </div>
 
-    <swiper      
+    <swiper
       navigation
       :modules="state.modules"
-      :pagination="{ clickable: true, dynamicBullets: true }"      
+      :pagination="{ clickable: true, dynamicBullets: true }"
       :slides-per-view="1"
       :space-between="50">
-      <swiper-slide v-for="(item, idx) in props.item.pics" :virtualIndex="idx" :key="idx">
-        <img :src="`${baseUrl}/pic/feed/${props.item.feedId}/${item}`" :alt="`이미지`" :aria-label="`이미지`" class="w614" />
+      <swiper-slide
+        v-for="(item, idx) in props.item.pics"
+        :virtualIndex="idx"
+        :key="idx">
+        <img
+          :src="`${baseUrl}/pic/feed/${props.item.feedId}/${item}`"
+          :alt="`이미지`"
+          :aria-label="`이미지`"
+          class="w614" />
       </swiper-slide>
     </swiper>
     <div class="favCont p-2 d-flex flex-row">
-      <i :class="`${state.isLike ? 'fas' : 'far'} fa-heart pointer rem1_2 me-3 color-red`" @click="toggleLike"></i>
+      <i
+        :class="`${
+          state.isLike ? 'fas' : 'far'
+        } fa-heart pointer rem1_2 me-3 color-red`"
+        @click="toggleLike"></i>
       <span>{{ state.likeCount }}</span>
     </div>
-    <div class="itemCtnt p-2" v-if="props.item.contents">{{ props.item.contents }}</div>
-    <feed-comment-container :feed-id="props.item.feedId" :comments="props.item.comments" />
+    <div class="itemCtnt p-2" v-if="props.item.contents">
+      {{ props.item.contents }}
+    </div>
+    <feed-comment-container
+      :feed-id="props.item.feedId"
+      :comments="props.item.comments" />
   </div>
 </template>
 
 <style scoped>
-.item { border: 1px solid #9f9e9e; width: 600px; }
-.w614 { width: 614px; }
-
+.item {
+  border: 1px solid #9f9e9e;
+  width: 600px;
+}
+.w614 {
+  width: 614px;
+}
 </style>

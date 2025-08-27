@@ -1,16 +1,59 @@
 <script setup>
+
 import logo from '@/assets/logo.png';
 import ProfileImg from './ProfileImg.vue';
 import { useAuthenticationStore } from '@/stores/authentication';
 import { signOut } from '@/services/userService';
+import { reactive } from 'vue';
+import { getKeywordList, getFeedList } from '@/services/feedService';
+import { useFeedStore } from '@/stores/feed';
 
+const feedStore = useFeedStore();
 const authenticationStore = useAuthenticationStore();
+
+const state = reactive({
+    search: '',
+    searchList: []
+})
+
 
 const doSignOut = async () => {    
     const res = await signOut();
     if(res.status === 200) {
         await authenticationStore.signOut()
+
+        //window.location.href = 'https://kauth.kakao.com/oauth/logout?client_id=23cc7564b5c5007c60f5088a24f32fbe&logout_redirect_uri=http://localhost:5173/sign-in';        
     }
+}
+
+let debounceTimer = null;
+const onTyping = () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+        console.log('검색');
+        getSearchKeyword();
+    }, 400);
+}
+
+const getSearchKeyword = async () => {
+    state.searchList = [];
+    if(!state.search) { return; }
+
+    const params = {
+        keyword: state.search
+    }
+    const res = await getKeywordList(params);
+    if(res.status === 200) {
+        const data = res.data.result;
+        state.searchList = data;
+    }
+}
+
+const getFeedData = async () => {
+    feedStore.setKeyword(state.search);
+    feedStore.clearList();
+    feedStore.setPage(1);
+    feedStore.setReLoading(true);
 }
 </script>
 
@@ -21,7 +64,13 @@ const doSignOut = async () => {
             <div class="d-inline-flex flex-grow-1 flex-shrink-0">
                 <router-link to="/"><img :src="logo" class="h24 w24" /></router-link>
             </div>
-            <div class="d-inline-flex flex-grow-1 flex-shrink-0"></div>
+            <div class="d-inline-flex flex-grow-1 flex-shrink-0">
+                <b-form-input list="search-list-id" @input="onTyping" @keyup.enter="getFeedData" v-model="state.search"/>
+                <datalist id="search-list-id">                    
+                    <option v-for="item in state.searchList">{{ item }}</option>
+                </datalist>
+                <b-button variant="outline-secondary" class="ms-3" size="sm" @click="getFeedData">Search</b-button>
+            </div>
             <div class="d-inline-flex flex-grow-1 flex-shrink-0">
                 <nav class="d-flex flex-grow-1 flex-column flex-md-row justify-content-end">
                     <div class="d-inline-flex">

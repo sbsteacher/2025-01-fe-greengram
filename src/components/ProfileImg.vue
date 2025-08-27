@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import defaultProfileImg from '@/assets/defaultProfileImg.png';
 import { useAuthenticationStore } from '@/stores/authentication';
+
 const authenticationStore = useAuthenticationStore();
 
 const baseUrl = ref(import.meta.env.VITE_BASE_URL);
@@ -17,8 +18,8 @@ const props = defineProps({
 
 //props값을 변수에 재할당해서 사용하는 경우 반응성이 사라짐. 이때는 computed를 사용하거나 toRefs 사용해야 함. 아래는 computed로 해결
 const pic = computed( () => props.pic 
-                            ? props.userId === authenticationStore.state.signedUser.userId 
-                                ? props.pic.startsWith('http') 
+                            ?   props.userId === authenticationStore.state.signedUser.userId 
+                                ?   props.pic.startsWith('http') 
                                     ? props.pic
                                     : `${baseUrl.value}/pic/profile/${props.userId}/${authenticationStore.state.signedUser.pic}` 
                                 : `${baseUrl.value}/pic/profile/${props.userId}/${props.pic}` 
