@@ -14,19 +14,18 @@ const props = defineProps({
 
 const state = reactive({
     isLoading: false,
-    isFinish: false    
+    isFinish: false
 });
 
 const handleScroll = () => { bindEvent(state, window, getData) };
 
 onMounted(() => {    
-    window.addEventListener('scroll', handleScroll);
-    getData();
+    window.addEventListener('scroll', handleScroll);   
 });
 
 onUnmounted(() => {
     window.removeEventListener('scroll', handleScroll);
-    feedStore.clearList();
+    feedStore.init();
 });
 
 const getData = async () => {
@@ -85,7 +84,7 @@ watch(() => feedStore.reLoading, newVal => {
 </script>
 
 <template>    
-    <feed-card v-for="item in feedStore.feedList" :key="item.feedId" :item="item" :yn-del="props.ynDel" @on-delete-feed="doDeleteFeed(item.feedId, idx)"></feed-card>
+    <feed-card v-for="item in feedStore.feedList" :key="item.feedId" :item="item" :yn-del="props.ynDel" @on-delete-feed="doDeleteFeed(item.feedId, idx)" />
     <div v-if="state.isLoading" class="loading"><img :src="loadingImg"/></div>    
 </template>
 

@@ -7,12 +7,8 @@ const feedStore = useFeedStore();
 
 onMounted(() => {
     feedStore.init();
+    feedStore.setReLoading(true);
 });
-
-onUnmounted(() => {
-    feedStore.clearList();
-});
-
 
 </script>
 

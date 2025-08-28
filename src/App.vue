@@ -128,7 +128,7 @@ const getCurrentTimestamp = () => {
                             <img class="preview-img" :src="item"></img>
                             <i class="fa fa-trash pointer preview-img-delete" @click="deletePreviewPic(idx)"></i>
                         </div>
-                    </div>                    
+                    </div>
                     <div class="mt-3"><button @click="saveFeed">전송</button></div>
                 </div>
             </div>

@@ -11,7 +11,6 @@ import {
     deleteUserProfilePic,
 } from '@/services/userService';
 import { postUserFollow, deleteUserFollow } from '@/services/followService';
-import { getFeedList, deleteFeed } from '@/services/feedService';
 
 const feedStore = useFeedStore();
 const fileInput = ref(null);
@@ -87,24 +86,6 @@ const removeUserPic = async () => {
     }
 };
 
-//피드 삭제
-const doDeleteFeed = async (feedId, idx) => {
-    if (!confirm('삭제하시겠습니까?')) {
-        return;
-    }
-
-    console.log('feedId:', feedId);
-    console.log('idx:', idx);
-
-    const params = { feed_id: feedId };
-
-    const res = await deleteFeed(params);
-    if (res.status === 200) {
-        //state.list.splice(idx, 1);
-        feedStore.deleteFeedByIdx(idx);
-    }
-};
-
 const onClickProfileImg = () => {
     if (state.isMyProfile) {
         fileInput.value.click();
@@ -162,10 +143,6 @@ const getData = (userId) => {
 
 onMounted(() => {
     getData(route.params.userId);
-});
-
-onUnmounted(() => {
-    feedStore.init();
 });
 
 onBeforeRouteUpdate((to, from) => {
@@ -253,7 +230,7 @@ onBeforeRouteUpdate((to, from) => {
         </div>
 
         <div class="item_container mt-3">
-        <FeedContainer :yn-del="state.isMyProfile" />
+            <FeedContainer :yn-del="state.isMyProfile" />
         </div>
     </div>
     </section>

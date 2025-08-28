@@ -18,7 +18,7 @@ export const useFeedStore = defineStore('feed',
         const setReLoading = reLoading => state.reLoading = reLoading;
 
         const init = () => {
-            state.feedList = []
+            state.feedList = [];
             state.page = 1;
             state.profileUserId = '';
             state.keyword = '';
