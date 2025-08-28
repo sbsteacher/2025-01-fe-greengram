@@ -69,9 +69,9 @@ const saveFeed = async () => {
             ...params,
             feedId: result.feedId,
             pics: result.pics,
-            writerId: authenticationStore.signedUser.userId,
-            writerNickName: authenticationStore.signedUser.nickName,
-            writerPic: authenticationStore.signedUser.pic,
+            writerId: authenticationStore.state.signedUser.userId,
+            writerNickName: authenticationStore.state.signedUser.nickName,
+            writerPic: authenticationStore.state.signedUser.pic,
             createdAt: getCurrentTimestamp(),
             comment: {
                 moreComment: false,
