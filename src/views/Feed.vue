@@ -6,7 +6,6 @@ import FeedContainer from '@/components/FeedContainer.vue';
 const feedStore = useFeedStore();
 
 onMounted(() => {    
-    feedStore.init();
     feedStore.setReLoading(true);
 });
 
