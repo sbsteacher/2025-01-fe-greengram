@@ -22,7 +22,7 @@ export const useFeedStore = defineStore('feed',
             state.page = 1;
             state.profileUserId = '';
             state.keyword = '';
-            state.reLoading = true;
+            state.reLoading = false;
         }
 
         const addFeedList = list => {

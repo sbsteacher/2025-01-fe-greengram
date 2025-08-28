@@ -1,7 +1,7 @@
 <script setup>
 import ProfileImg from '@/components/ProfileImg.vue';
 import FeedContainer from '@/components/FeedContainer.vue';
-import { ref, reactive, onMounted, onUnmounted } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import { useRoute, onBeforeRouteUpdate } from 'vue-router';
 import { useFeedStore } from '@/stores/feed';
 import { useAuthenticationStore } from '@/stores/authentication';
@@ -135,13 +135,13 @@ const onClickFollow = async () => {
 };
 
 const getData = (userId) => {
-    getUserData();
+    getUserData();    
     feedStore.init();
     feedStore.setProfileUserId(userId);
     feedStore.setReLoading(true);
 };
 
-onMounted(() => {
+onMounted(() => {    
     getData(route.params.userId);
 });
 

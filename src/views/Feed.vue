@@ -1,11 +1,11 @@
 <script setup>
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted } from 'vue';
 import { useFeedStore } from '@/stores/feed';
 import FeedContainer from '@/components/FeedContainer.vue';
 
 const feedStore = useFeedStore();
 
-onMounted(() => {
+onMounted(() => {    
     feedStore.init();
     feedStore.setReLoading(true);
 });

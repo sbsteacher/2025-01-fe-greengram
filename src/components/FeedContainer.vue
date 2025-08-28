@@ -20,7 +20,7 @@ const state = reactive({
 const handleScroll = () => { bindEvent(state, window, getData) };
 
 onMounted(() => {    
-    window.addEventListener('scroll', handleScroll);   
+    window.addEventListener('scroll', handleScroll);    
 });
 
 onUnmounted(() => {
@@ -81,6 +81,11 @@ watch(() => feedStore.reLoading, newVal => {
         feedStore.setReLoading(false);
     }
 });
+
+// feedStore.$subscribe((mutation, state) => {
+//     console.log('mutation: ', mutation)
+//     //if(mutation.reLoading)
+// }, { detached: true });
 </script>
 
 <template>    
