@@ -29,6 +29,26 @@ const router = createRouter({
       name: 'oauth2',
       component: () => import('../views/OAuth2Handler.vue')
     },
+    {
+      path: '/pay/approval',
+      name: 'pay-approval',
+      component: () => import('../views/pay/PayApproval.vue')
+    },
+    {
+      path: '/pay/cancel',
+      name: 'pay-cancel',
+      component: () => import('../views/pay/PayCancel.vue')
+    },
+    {
+      path: '/pay/completed',
+      name: 'pay-completed',
+      component: () => import('../views/pay/PayCompleted.vue')
+    },
+    {
+      path: '/pay/fail',
+      name: 'pay-fail',
+      component: () => import('../views/pay/PayFail.vue')
+    },
   ],
 })
 
