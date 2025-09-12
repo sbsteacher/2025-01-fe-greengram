@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthenticationStore } from '@/stores/authentication';
 
 const router = createRouter({
-  //history: createWebHistory(import.meta.env.BASE_URL),
-  history: createWebHistory(process.env.NODE_ENV === 'production' ? '/greengram/' : import.meta.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
+  //history: createWebHistory(process.env.NODE_ENV === 'production' ? '/greengram/' : import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
