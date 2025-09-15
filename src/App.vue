@@ -73,7 +73,9 @@ const saveFeed = async () => {
             writerNickName: authenticationStore.state.signedUser.nickName,
             writerPic: authenticationStore.state.signedUser.pic,
             createdAt: getCurrentTimestamp(),
-            comment: {
+            isLike: 0,
+            likeCount: 0,
+            comments: {
                 moreComment: false,
                 commentList: []
             }  
