@@ -17,3 +17,5 @@ pinia.use(piniaPluginPersistedstate);
 app.use(pinia).use(router).use(BootstrapVue3);
 
 app.mount('#app')
+
+//테스트
